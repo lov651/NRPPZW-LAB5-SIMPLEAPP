@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple PWA</title>
+    <meta name="theme-color" content="#fcba03" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="apple-touch-icon" href="./icons/icon192.png" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Simple app</h1>
+      <button
+        style="
+          margin-left: 20px;
+          width: 150px;
+          background-color: #696564;
+          color: #fff;
+          text-transform: uppercase;
+          border: 2px solid #000;
+        "
+        onclick="notif()"
+      >
+        Click on this button to get a notification
+      </button>
+
+      <h2>Move box:</h2>
+      <button id="move" onclick="moveBox()">Move right</button>
+      <div class="red-box" id="box">Box</div>
+    </div>
+    <div style="margin: 40px auto 0 auto; width: 80vw; text-align: center">
+      <img src="./images/blue.jpeg" alt="blue" />
+      <h1>
+        <a href="javascript:window.alert('Hi I am an alert')"
+          >CLICK HERE TO TEST AN ALERT ON PAGE!</a
+        >
+      </h1>
+      <noscript>
+        <p>
+          If you are seeing this text, it means javascript is not enabled on
+          your browser, and therefore you canno't test the above alert
+        </p>
+      </noscript>
+    </div>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("./sw.js");
+        navigator.serviceWorker.ready.then((swRegistration) => {
+          return swRegistration.sync.register("firstSync");
+        });
+      } else {
+        console.log("Service worker is not supported");
+      }
+
+      Notification.requestPermission(function (status) {
+        console.log("Notification permission status:", status);
+      });
+
+      function notif() {
+        if (Notification.permission == "granted") {
+          navigator.serviceWorker.getRegistration().then(function (reg) {
+            reg.showNotification(
+              "Click on this notification to go to www.google.com!"
+            );
+          });
+        }
+      }
+
+      function moveBox() {
+        let text = document.getElementById("move").innerHTML;
+        console.log(text);
+        if (text == "Move right") {
+          document.getElementById("move").innerHTML = "Move left";
+          document.getElementById("box").classList.toggle("red-box-right");
+        } else {
+          document.getElementById("move").innerHTML = "Move right";
+          document.getElementById("box").classList.toggle("red-box-right");
+        }
+      }
+    </script>
+  </body>
+</html>

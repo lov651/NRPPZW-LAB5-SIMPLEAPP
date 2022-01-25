@@ -1,0 +1,35 @@
+/* * {
+  margin: 0;
+  padding: 0;
+} */
+
+h1 {
+  text-align: center;
+}
+h2 {
+  padding: 0 20px;
+}
+#move {
+  margin: 0 20px;
+}
+
+.container {
+  margin: 0 auto;
+  border: 2px solid #000;
+  width: 80vw;
+}
+
+.red-box {
+  width: 300px;
+  height: 300px;
+  line-height: 300px;
+  margin: 20px auto 20px 20px;
+  background-color: #f00;
+  font-size: 2rem;
+  color: #fff;
+  text-align: center;
+}
+
+.red-box-right {
+  margin: 20px 20px 20px auto;
+}
